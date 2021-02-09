@@ -1,0 +1,20 @@
+{
+  "name": "twig-schema-validator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "twig": "^1.15.4",
+    "twig-ast": "^1.6.6"
+  },
+  "devDependencies": {
+    "@factorial/stack-core": "^0.2.5",
+    "@factorial/stack-javascript": "^0.2.3"
+  }
+}
