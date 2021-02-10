@@ -1,5 +1,3 @@
 module.exports = {
-  use: [
-    require("@factorial/stack-javascript")
-  ]
+  use: [require("@factorial/stack-javascript")],
 };

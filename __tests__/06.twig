@@ -1,0 +1,11 @@
+<ol>
+  {% for objectArray3Object in objectArray3 %}
+    <li>
+      <ul>
+        {% for objectArray3ObjectItem in objectArray3Object %}
+          <li>{{ objectArray3ObjectItem.item }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ol>

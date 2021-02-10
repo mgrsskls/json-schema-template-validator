@@ -1,0 +1,24 @@
+<ol>
+  {% for arr1item in arr1 %}
+    <li>
+      <ul>
+        {% for arr1itemArrayItem in arr1item.array %}
+          <li>
+            {{ arr1itemArrayItem.item }}
+            {% for arr1itemArrayItemArray in arr1itemArrayItem.array %}
+              <li>
+                <ul>
+                  {% for arr1itemArrayItemArrayArrayItem in arr1itemArrayItemArray.array %}
+                    <li>
+                      {{ arr1itemArrayItemArrayArrayItem }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ol>
