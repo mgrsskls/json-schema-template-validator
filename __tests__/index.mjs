@@ -100,7 +100,7 @@ test("06", async () => {
 
 test("07", async () => {
   const result = await Validator("__tests__/07.twig");
-
+  console.log(JSON.stringify(result, null, 2));
   expect(result).toEqual({
     var1: {
       type: "array|object",
@@ -114,6 +114,19 @@ test("08", async () => {
   expect(result).toEqual({
     var2: {
       type: "array|boolean|number|object|string",
+    },
+    var3: {
+      type: "object",
+      properties: {
+        var31: {
+          type: "object",
+          properties: {
+            var32: {
+              type: "array|boolean|number|object|string",
+            },
+          },
+        },
+      },
     },
   });
 });
@@ -140,7 +153,7 @@ test("09", async () => {
 
 test("10", async () => {
   const result = await Validator("__tests__/10.twig");
-
+  console.log(JSON.stringify(result, null, 2));
   expect(result).toEqual({
     arr1: {
       type: "array",
