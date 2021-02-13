@@ -1,23 +1,7 @@
-<ol>
-  {% for arr1item in arr1 %}
+<ul>
+  {% for arrayItem in object.array %}
     <li>
-      <ul>
-        {% for arr1itemArrayItem in arr1item.array %}
-          <li>
-            {% for arr1itemArrayItemArray in arr1itemArrayItem.array %}
-              <li>
-                <ul>
-                  {% for arr1itemArrayItemArrayArrayItem in arr1itemArrayItemArray.array %}
-                    <li>
-                      {{ arr1itemArrayItemArrayArrayItem }}
-                    </li>
-                  {% endfor %}
-                </ul>
-              </li>
-            {% endfor %}
-          </li>
-        {% endfor %}
-      </ul>
+      {{ arrayItem }}
     </li>
   {% endfor %}
-</ol>
+</ul>

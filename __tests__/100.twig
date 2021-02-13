@@ -1,0 +1,28 @@
+<ol>
+  {{ var1 }}
+  {{ obj1.var2 }}
+  {% for arr1iarray1itemtem in array1 %}
+    <li>
+      <ul>
+        {% for array2item in array1item.array2 %}
+          <li>
+            {{ array2item.var1 }}
+            {% include "foo" with globalVar %}
+            {% for array3item in array2item.array3 %}
+              <li>
+                <ul>
+                  {% for array4item in array3item.array4 %}
+                    <li>
+                      {{ array4item }}
+                      {{ array2item.var }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ol>

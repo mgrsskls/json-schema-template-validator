@@ -20,7 +20,28 @@ test("02", async () => {
         object2: {
           type: "object",
           properties: {
-            object3var: {
+            object2var: {
+              type: "boolean|number|string",
+            },
+            object3: {
+              type: "object",
+              properties: {
+                object3var: {
+                  type: "boolean|number|string",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    object4: {
+      type: "object",
+      properties: {
+        object5: {
+          type: "object",
+          properties: {
+            object5var: {
               type: "boolean|number|string",
             },
           },
@@ -100,7 +121,7 @@ test("06", async () => {
 
 test("07", async () => {
   const result = await Validator("__tests__/07.twig");
-  console.log(JSON.stringify(result, null, 2));
+
   expect(result).toEqual({
     var1: {
       type: "array|object",
@@ -153,27 +174,182 @@ test("09", async () => {
 
 test("10", async () => {
   const result = await Validator("__tests__/10.twig");
-  console.log(JSON.stringify(result, null, 2));
+
   expect(result).toEqual({
-    arr1: {
+    object: {
+      type: "object",
+      properties: {
+        array: {
+          type: "array",
+          items: {
+            type: "boolean|number|string",
+          },
+        },
+      },
+    },
+  });
+});
+
+test("11", async () => {
+  const result = await Validator("__tests__/11.twig");
+
+  expect(result).toEqual({
+    variable: {
+      type: "boolean|number|string",
+    },
+    array: {
+      type: "array",
+      items: {
+        type: "boolean|number|string",
+      },
+    },
+  });
+});
+
+test("12", async () => {
+  const result = await Validator("__tests__/12.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "array|object",
+      },
+    },
+  });
+});
+
+test("13", async () => {
+  const result = await Validator("__tests__/13.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "array|boolean|number|object|string",
+      },
+    },
+  });
+});
+
+test("14", async () => {
+  const result = await Validator("__tests__/14.twig");
+
+  expect(result).toEqual({
+    array: {
       type: "array",
       items: {
         type: "object",
         properties: {
-          array: {
+          key: {
+            type: "array|boolean|number|object|string",
+          },
+        },
+      },
+    },
+  });
+});
+
+test("15", async () => {
+  const result = await Validator("__tests__/15.twig");
+
+  expect(result).toEqual({
+    object: {
+      type: "object",
+      properties: {
+        array: {
+          type: "array",
+          items: {
+            type: "boolean|number|string",
+          },
+        },
+      },
+    },
+  });
+});
+
+test("16", async () => {
+  const result = await Validator("__tests__/16.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          items: {
+            type: "array",
+            items: {
+              type: "boolean|number|string",
+            },
+          },
+        },
+      },
+    },
+  });
+});
+
+test("17", async () => {
+  const result = await Validator("__tests__/17.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          items: {
+            type: "array",
+            items: {
+              type: "array|object",
+            },
+          },
+        },
+      },
+    },
+  });
+});
+
+test("100", async () => {
+  const result = await Validator("__tests__/100.twig");
+
+  expect(result).toEqual({
+    var1: {
+      type: "boolean|number|string",
+    },
+    obj1: {
+      type: "object",
+      properties: {
+        var2: {
+          type: "boolean|number|string",
+        },
+      },
+    },
+    globalVar: {
+      type: "array|boolean|number|object|string",
+    },
+    array1: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          var1: {
+            type: "boolean|number|string",
+          },
+          array2: {
             type: "array",
             items: {
               type: "object",
               properties: {
-                item: {
+                var1: {
                   type: "boolean|number|string",
                 },
-                array: {
+                array3: {
                   type: "array",
                   items: {
                     type: "object",
                     properties: {
-                      array: {
+                      array4: {
                         type: "array",
                         items: {
                           type: "boolean|number|string",

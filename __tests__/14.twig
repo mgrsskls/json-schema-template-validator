@@ -1,0 +1,7 @@
+<ol>
+  {% for item in array %}
+    <li>
+      {% include "foo.twig" with {param: item.key} %}
+    </li>
+  {% endfor %}
+</ol>

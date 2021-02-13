@@ -1,0 +1,13 @@
+<ol>
+  {% for object in array %}
+    <li>
+      <ul>
+        {% for item in object.items %}
+          <li>
+            {{ item }}
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ol>
