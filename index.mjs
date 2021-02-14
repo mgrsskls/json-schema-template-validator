@@ -46,69 +46,94 @@ function getArray(token, initial) {
       (entry) => entry.type === "output" || entry.type === "logic"
     )
   ) {
-    if (token.output.find((entry) => entry.type === "output")) {
-      const item = token.output.find((entry) => entry.type === "output");
-      // children are simple variables
-      if (item.stack.length === 1) {
-        if (initial) {
+    token.output.forEach((item) => {
+      if (item.type === "output") {
+        // children are simple variables
+        if (item.stack.length === 1) {
+          // global variable, not the an item of the array
+          if (item.stack[0].value !== token.valueVar) {
+            o[item.stack[0].value] = {
+              type: "boolean|number|string",
+            };
+            // item of the array
+          } else if (initial) {
+            o[token.expression[0].value] = {
+              type: "array",
+              items: {
+                type: "boolean|number|string",
+              },
+            };
+          } else {
+            o = {
+              type: "array",
+              items: {
+                type: "boolean|number|string",
+              },
+            };
+          }
+          // children are objects
+        } else {
+          const keys = [];
+
+          item.stack.forEach((i) => {
+            if (i.type === "Twig.expression.type.key.period") {
+              keys.push(i.key);
+            }
+          });
+
+          // global object, not the an item of the array
+          if (item.stack[0].value !== token.valueVar) {
+            o[item.stack[0].value] = {
+              type: "object",
+              properties: convertDotNotationToObject(keys),
+            };
+            // item of the array
+          } else if (initial) {
+            o[token.expression[0].value] = {
+              type: "array",
+              items: {
+                type: "object",
+                properties: convertDotNotationToObject(keys),
+              },
+            };
+          } else {
+            o = {
+              type: "array",
+              items: {
+                type: "object",
+                properties: convertDotNotationToObject(keys),
+              },
+            };
+          }
+        }
+      } else if (item.type === "logic") {
+        // if (
+        //   item.token.type === "Twig.logic.type.include" &&
+        //   item.token.withStack.length === 1
+        // ) {
+        //   o[token.expression[0].value] = getLogic(item.token, true);
+        //   // o = deepMerge(o, getLogic(item.token, true));
+        // } else {
+        //   o[token.expression[0].value] = {
+        //     type: "array",
+        //     items: getLogic(item.token, false),
+        //   };
+        // }
+
+        if (
+          item.token.withStack &&
+          item.token.withStack.length === 1 &&
+          item.token.withStack[0].value !== token.valueVar
+        ) {
+          o = deepMerge(o, getLogic(item.token, true));
+        } else {
           o[token.expression[0].value] = {
             type: "array",
-            items: {
-              type: "boolean|number|string",
-            },
-          };
-        } else {
-          o = {
-            type: "array",
-            items: {
-              type: "boolean|number|string",
-            },
+            items: getLogic(item.token, false),
           };
         }
-
-        return o;
       }
-
-      // children are objects
-      const keys = [];
-
-      item.stack.forEach((i) => {
-        if (i.type === "Twig.expression.type.key.period") {
-          keys.push(i.key);
-        }
-      });
-
-      if (initial) {
-        o[token.expression[0].value] = {
-          type: "array",
-          items: {
-            type: "object",
-            properties: convertDotNotationToObject(keys),
-          },
-        };
-      } else {
-        o = {
-          type: "array",
-          items: {
-            type: "object",
-            properties: convertDotNotationToObject(keys),
-          },
-        };
-      }
-    } else {
-      const item = token.output.find((entry) => entry.type === "logic");
-
-      o[token.expression[0].value] = {
-        type: "array",
-        items: getLogic(item.token),
-      };
-    }
-
-    return o;
-  }
-
-  if (token.type === "Twig.logic.type.include") {
-    o = getInclude(token, initial);
+    });
 
     return o;
   }
@@ -198,11 +223,11 @@ function getInclude(token, initial) {
   if (token.withStack.length === 1) {
     if (initial) {
       o[token.withStack[0].value] = {
-        type: "array|object",
+        type: "object",
       };
     } else {
       o = {
-        type: "array|object",
+        type: "object",
       };
     }
   } else {

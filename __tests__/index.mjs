@@ -124,7 +124,7 @@ test("07", async () => {
 
   expect(result).toEqual({
     var1: {
-      type: "array|object",
+      type: "object",
     },
   });
 });
@@ -213,7 +213,7 @@ test("12", async () => {
     array: {
       type: "array",
       items: {
-        type: "array|object",
+        type: "object",
       },
     },
   });
@@ -301,11 +301,69 @@ test("17", async () => {
           items: {
             type: "array",
             items: {
-              type: "array|object",
+              type: "object",
             },
           },
         },
       },
+    },
+  });
+});
+
+test("18", async () => {
+  const result = await Validator("__tests__/18.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "boolean|number|string",
+      },
+    },
+    globalVar: {
+      type: "boolean|number|string",
+    },
+  });
+});
+
+test("19", async () => {
+  const result = await Validator("__tests__/19.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          var: {
+            type: "boolean|number|string",
+          },
+        },
+      },
+    },
+    globalObject: {
+      type: "object",
+      properties: {
+        globalVar: {
+          type: "boolean|number|string",
+        },
+      },
+    },
+  });
+});
+
+test("20", async () => {
+  const result = await Validator("__tests__/20.twig");
+
+  expect(result).toEqual({
+    array: {
+      type: "array",
+      items: {
+        type: "boolean|number|string",
+      },
+    },
+    globalVar: {
+      type: "object",
     },
   });
 });
